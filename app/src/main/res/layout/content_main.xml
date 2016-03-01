@@ -29,7 +29,8 @@
             android:id="@+id/addButton"
             android:layout_gravity="center_horizontal"
             android:layout_weight="0.10"
-            android:clickable="true" />
+            android:clickable="true"
+            android:enabled="true" />
 
         <Button
             android:layout_width="match_parent"
@@ -37,7 +38,8 @@
             android:text="Series list"
             android:id="@+id/serieslistButton"
             android:layout_weight="0.10"
-            android:clickable="true" />
+            android:clickable="true"
+            android:enabled="true" />
 
         <Button
             android:layout_width="match_parent"
@@ -46,6 +48,7 @@
             android:id="@+id/newepisButton"
             android:layout_gravity="center_horizontal"
             android:layout_weight="0.10"
-            android:clickable="true" />
+            android:clickable="true"
+            android:enabled="true" />
     </LinearLayout>
 </RelativeLayout>
