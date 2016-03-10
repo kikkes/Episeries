@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">Episeries</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_add_serie">AddSerieActivity</string>
+    <string name="title_activity_add_serie">Add a serie</string>
+    <string name="title_activity_login">Sign in</string>
+
+
 </resources>

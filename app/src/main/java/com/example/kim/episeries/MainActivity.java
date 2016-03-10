@@ -13,7 +13,8 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static Button button_submit;
+    private static Button button_add;
+    private static Button button_list;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,23 +22,25 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         OnClickButtonListener();
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
     }
 
     public void OnClickButtonListener() {
-        button_submit = (Button)findViewById(R.id.addButton);
-        button_submit.setOnClickListener(
+        button_add = (Button)findViewById(R.id.addButton);
+        button_list = (Button)findViewById(R.id.serieslistButton);
+        button_add.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent("com.example.kim.episeries.AddSerieActivity");
+                        startActivity(intent);
+                    }
+                }
+        );
+        button_list.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent("com.example.kim.episeries.LoginActivity");
                         startActivity(intent);
                     }
                 }
