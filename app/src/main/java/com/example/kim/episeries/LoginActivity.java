@@ -1,5 +1,9 @@
 package com.example.kim.episeries;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,24 +16,31 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class LoginActivity extends AppCompatActivity {
-    Button b1,b2;
-    EditText ed1,ed2;
 
+    SharedPreferences sharedprefs;
+    public static final String MyPREFERENCES = "MyPrefs" ;
+    public static final String Email = "emailKey";
+    public static final String Pw = "passKey";
+    Button b1;
+    EditText ed1,ed2;
     TextView tx1;
     int counter = 3;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        b1=(Button)findViewById(R.id.button);
+        b1=(Button)findViewById(R.id.login);
         ed1=(EditText)findViewById(R.id.editText);
         ed2=(EditText)findViewById(R.id.editText2);
 
-        b2=(Button)findViewById(R.id.button2);
         tx1=(TextView)findViewById(R.id.textView3);
         tx1.setVisibility(View.GONE);
+
+        sharedprefs = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -38,6 +49,16 @@ public class LoginActivity extends AppCompatActivity {
 
                         ed2.getText().toString().equals("admin")) {
                     Toast.makeText(getApplicationContext(), "Redirecting...", Toast.LENGTH_SHORT).show();
+                    String mail  = ed1.getText().toString();
+                    String password  = ed2.getText().toString();
+
+                    SharedPreferences.Editor editor = sharedprefs.edit();
+                    editor.putString(Email, mail);
+                    editor.putString(Pw, password);
+                    editor.commit();
+
+                    Intent intent = new Intent("com.example.kim.episeries.MainActivity");
+                    startActivity(intent);
                 }
                 else{
                     Toast.makeText(getApplicationContext(), "Wrong Credentials",Toast.LENGTH_SHORT).show();
@@ -51,13 +72,6 @@ public class LoginActivity extends AppCompatActivity {
                         b1.setEnabled(false);
                     }
                 }
-            }
-        });
-
-        b2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
             }
         });
     }
