@@ -1,8 +1,15 @@
 <resources>
     <string name="app_name">Episeries</string>
     <string name="action_settings">Settings</string>
+    <string name="action_logout">Logout</string>
     <string name="title_activity_add_serie">Add a serie</string>
     <string name="title_activity_login">Sign in</string>
 
+    <string name="pref_summary_auto_delete">sumautodel</string>
+    <string name="pref_title_auto_delete">titleautodel</string>
+    <string name="pref_summary_delete_limit">sumdellim</string>
+    <string name="pref_title_sms_delete">titlesmsdel</string>
+    <string name="pref_sms_storage_title">smsstortitle</string>
+    <string name="pref_title_mms_delete">titlemmsdel</string>
 
 </resources>

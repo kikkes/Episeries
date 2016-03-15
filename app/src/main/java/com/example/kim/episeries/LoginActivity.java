@@ -23,8 +23,6 @@ public class LoginActivity extends AppCompatActivity {
     public static final String Pw = "passKey";
     Button b1;
     EditText ed1,ed2;
-    TextView tx1;
-    int counter = 3;
 
 
 
@@ -37,17 +35,14 @@ public class LoginActivity extends AppCompatActivity {
         ed1=(EditText)findViewById(R.id.editText);
         ed2=(EditText)findViewById(R.id.editText2);
 
-        tx1=(TextView)findViewById(R.id.textView3);
-        tx1.setVisibility(View.GONE);
-
         sharedprefs = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(ed1.getText().toString().equals("admin") &&
+                if(ed1.getText().toString().equals("a") &&
 
-                        ed2.getText().toString().equals("admin")) {
+                        ed2.getText().toString().equals("a")) {
                     Toast.makeText(getApplicationContext(), "Redirecting...", Toast.LENGTH_SHORT).show();
                     String mail  = ed1.getText().toString();
                     String password  = ed2.getText().toString();
@@ -63,14 +58,6 @@ public class LoginActivity extends AppCompatActivity {
                 else{
                     Toast.makeText(getApplicationContext(), "Wrong Credentials",Toast.LENGTH_SHORT).show();
 
-                    tx1.setVisibility(View.VISIBLE);
-                    tx1.setBackgroundColor(Color.RED);
-                    counter--;
-                    tx1.setText(Integer.toString(counter));
-
-                    if (counter == 0) {
-                        b1.setEnabled(false);
-                    }
                 }
             }
         });
