@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static Button button_add;
     private static Button button_list;
+    Userlocaldata userlocaldata;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,15 +73,31 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if (id == R.id.action_logout) {
-            SharedPreferences sharedpreferences = getSharedPreferences(LoginActivity.MyPREFERENCES, Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedpreferences.edit();
-            editor.clear();
-            editor.commit();
+            Userlocaldata userlocaldata = new Userlocaldata(this);
+            userlocaldata.clearUserData();
             Toast.makeText(getApplicationContext(), "Logging out...", Toast.LENGTH_SHORT).show();
             finish();
 
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+       // if( authenticate()== true) {
+       //     displayUserDetails();
+     //   }
+
+    }
+
+   // private boolean authenticate() {
+    //    return userlocaldata.getLoggedin();
+   // }
+
+    private void displayUserDetails() {
+        User user = userlocaldata.getLoggedinUser();
+
     }
 }

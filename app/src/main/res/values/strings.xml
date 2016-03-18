@@ -4,6 +4,7 @@
     <string name="action_logout">Logout</string>
     <string name="title_activity_add_serie">Add a serie</string>
     <string name="title_activity_login">Sign in</string>
+    <string name="title_activity_register">Register</string>
 
     <string name="pref_summary_auto_delete">sumautodel</string>
     <string name="pref_title_auto_delete">titleautodel</string>

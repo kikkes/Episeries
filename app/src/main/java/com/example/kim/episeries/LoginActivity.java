@@ -17,13 +17,10 @@ import android.widget.Toast;
 
 public class LoginActivity extends AppCompatActivity {
 
-    SharedPreferences sharedprefs;
-    public static final String MyPREFERENCES = "MyPrefs" ;
-    public static final String Email = "emailKey";
-    public static final String Pw = "passKey";
-    Button b1;
-    EditText ed1,ed2;
-
+    Userlocaldata userlocaldata;
+    Button bLogin;
+    EditText etEmail,etPassword;
+    TextView toRegister;
 
 
     @Override
@@ -31,27 +28,23 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        b1=(Button)findViewById(R.id.login);
-        ed1=(EditText)findViewById(R.id.editText);
-        ed2=(EditText)findViewById(R.id.editText2);
+        bLogin=(Button)findViewById(R.id.login);
+        etEmail=(EditText)findViewById(R.id.editText);
+        etPassword=(EditText)findViewById(R.id.editText2);
+        toRegister=(TextView) findViewById(R.id.toRegister);
 
-        sharedprefs = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+        userlocaldata = new Userlocaldata(this);
 
-        b1.setOnClickListener(new View.OnClickListener() {
+        bLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(ed1.getText().toString().equals("a") &&
-
-                        ed2.getText().toString().equals("a")) {
+                if(etEmail.getText().toString().equals("a") && etPassword.getText().toString().equals("a")) {
+                    String mail  = etEmail.getText().toString();
+                    String password  = etPassword.getText().toString();
+                    User loggonUser = new User(mail,password);
+                    userlocaldata.storeUserData(loggonUser);
+                    userlocaldata.setLoggedin(true);
                     Toast.makeText(getApplicationContext(), "Redirecting...", Toast.LENGTH_SHORT).show();
-                    String mail  = ed1.getText().toString();
-                    String password  = ed2.getText().toString();
-
-                    SharedPreferences.Editor editor = sharedprefs.edit();
-                    editor.putString(Email, mail);
-                    editor.putString(Pw, password);
-                    editor.commit();
-
                     Intent intent = new Intent("com.example.kim.episeries.MainActivity");
                     startActivity(intent);
                 }
@@ -59,6 +52,13 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Wrong Credentials",Toast.LENGTH_SHORT).show();
 
                 }
+            }
+        });
+        toRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent("com.example.kim.episeries.RegisterActivity");
+                startActivity(intent);
             }
         });
     }
