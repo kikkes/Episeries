@@ -17,7 +17,7 @@ import android.widget.Toast;
 
 public class LoginActivity extends AppCompatActivity {
 
-    Userlocaldata userlocaldata;
+    Userlocaldata userData;
     Button bLogin;
     EditText etEmail,etPassword;
     TextView toRegister;
@@ -33,7 +33,7 @@ public class LoginActivity extends AppCompatActivity {
         etPassword=(EditText)findViewById(R.id.editText2);
         toRegister=(TextView) findViewById(R.id.toRegister);
 
-        userlocaldata = new Userlocaldata(this);
+        userData = new Userlocaldata(this);
 
         bLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -42,8 +42,8 @@ public class LoginActivity extends AppCompatActivity {
                     String mail  = etEmail.getText().toString();
                     String password  = etPassword.getText().toString();
                     User loggonUser = new User(mail,password);
-                    userlocaldata.storeUserData(loggonUser);
-                    userlocaldata.setLoggedin(true);
+                    userData.storeUserData(loggonUser);
+                    userData.setLoggedin(true);
                     Toast.makeText(getApplicationContext(), "Redirecting...", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent("com.example.kim.episeries.MainActivity");
                     startActivity(intent);
@@ -84,4 +84,30 @@ public class LoginActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+
+    private void displayUserDetails() {
+        User user = userData.getLoggedinUser();
+
+        etEmail.setText(user.getEmail());
+        etPassword.setText(user.getPassword());
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if( authenticate()== true) {
+            displayUserDetails();
+        }
+    }
+
+    private boolean authenticate() {
+        if (userData.getLoggedin() != null) {
+            Intent intent = new Intent("com.example.kim.episeries.MainActivity");
+            startActivity(intent);
+            return false;
+        }
+        return true;
+    }
+
 }

@@ -42,11 +42,15 @@ public class Userlocaldata {
 
     }
 
-    public boolean getLoggedin() {
-        if(userData.getBoolean("loggedIn",false)== true) {
-            return true;
+    public User getLoggedin() {
+        if (userData.getBoolean("loggedIn", false) == false) {
+            return null;
         }
-        else { return false;}
+        String email = userData.getString("email", "");
+        String password = userData.getString("password", "");
+
+        User user = new User( email, password);
+        return user;
     }
 
     public void clearUserData() {

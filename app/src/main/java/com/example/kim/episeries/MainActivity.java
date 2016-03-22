@@ -1,11 +1,7 @@
 package com.example.kim.episeries;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -18,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static Button button_add;
     private static Button button_list;
-    Userlocaldata userlocaldata;
+    Userlocaldata userData;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,8 +69,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if (id == R.id.action_logout) {
-            Userlocaldata userlocaldata = new Userlocaldata(this);
-            userlocaldata.clearUserData();
+            Userlocaldata userData = new Userlocaldata(this);
+            userData.clearUserData();
             Toast.makeText(getApplicationContext(), "Logging out...", Toast.LENGTH_SHORT).show();
             finish();
 
@@ -83,21 +79,6 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-       // if( authenticate()== true) {
-       //     displayUserDetails();
-     //   }
 
-    }
 
-   // private boolean authenticate() {
-    //    return userlocaldata.getLoggedin();
-   // }
-
-    private void displayUserDetails() {
-        User user = userlocaldata.getLoggedinUser();
-
-    }
 }
