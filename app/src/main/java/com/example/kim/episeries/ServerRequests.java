@@ -7,160 +7,178 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
+import android.content.Intent;
+import android.view.View;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.params.BasicHttpParams;
-import org.apache.http.params.HttpConnectionParams;
-import org.apache.http.params.HttpParams;
-import org.apache.http.util.EntityUtils;
+import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
+import java.util.HashMap;
+
+class POSTRequest extends AsyncTask<String, String, JSONObject> {
+    JSONParser jsonParser = new JSONParser();
+    Context context;
+
+    private ProgressDialog pDialog;
+
+    private static final String LOGIN_URL = "localhost:8000/register.php";
+
+    private static final String TAG_SUCCESS = "success";
+    private static final String TAG_MESSAGE = "message";
 
 
-public class ServerRequests {
-    ProgressDialog progressDialog;
-    public static final int CONNECTION_TIMEOUT = 1000 * 15;
-    public static final String SERVER_ADDRESS = "http://tonikamitv.hostei.com/";
+    public POSTRequest(Context context) {
 
-    public ServerRequests(Context context) {
-        progressDialog = new ProgressDialog(context);
-        progressDialog.setCancelable(false);
-        progressDialog.setTitle("Processing...");
-        progressDialog.setMessage("Please wait...");
+
+    }
+    @Override
+    protected void onPreExecute() {
+        pDialog = new ProgressDialog(this.context);
+        pDialog.setMessage("Attempting login...");
+        pDialog.setIndeterminate(false);
+        pDialog.setCancelable(true);
+        pDialog.show();
     }
 
-    public void storeUserDataInBackground(User user,
-                                          GetUserCallback userCallBack) {
-        progressDialog.show();
-        new StoreUserDataAsyncTask(user, userCallBack).execute();
-    }
+    @Override
+    protected JSONObject doInBackground(String... args) {
 
-    public void fetchUserDataAsyncTask(User user, GetUserCallback userCallBack) {
-        progressDialog.show();
-        new fetchUserDataAsyncTask(user, userCallBack).execute();
-    }
+        try {
 
-    /**
-     * parameter sent to task upon execution progress published during
-     * background computation result of the background computation
-     */
+            HashMap<String, String> params = new HashMap<>();
+            params.put("email", args[0]);
+            params.put("password", args[1]);
 
-    public class StoreUserDataAsyncTask extends AsyncTask<Void, Void, Void> {
-        User user;
-        GetUserCallback userCallBack;
+            Log.d("request", "starting");
 
-        public StoreUserDataAsyncTask(User user, GetUserCallback userCallBack) {
-            this.user = user;
-            this.userCallBack = userCallBack;
-        }
+            JSONObject json = jsonParser.makeHttpRequest(
+                    LOGIN_URL, "POST", params);
 
-        @Override
-        protected Void doInBackground(Void... params) {
-            ArrayList<NameValuePair> dataToSend = new ArrayList<>();
-            dataToSend.add(new BasicNameValuePair("name", user.name));
-            dataToSend.add(new BasicNameValuePair("username", user.username));
-            dataToSend.add(new BasicNameValuePair("password", user.password));
-            dataToSend.add(new BasicNameValuePair("age", user.age + ""));
+            if (json != null) {
+                Log.d("JSON result", json.toString());
 
-            HttpParams httpRequestParams = getHttpRequestParams();
-
-            HttpClient client = new DefaultHttpClient(httpRequestParams);
-            HttpPost post = new HttpPost(SERVER_ADDRESS
-                    + "Register.php");
-
-            try {
-                post.setEntity(new UrlEncodedFormEntity(dataToSend));
-                client.execute(post);
-            } catch (Exception e) {
-                e.printStackTrace();
+                return json;
             }
 
-            return null;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
-        private HttpParams getHttpRequestParams() {
-            HttpParams httpRequestParams = new BasicHttpParams();
-            HttpConnectionParams.setConnectionTimeout(httpRequestParams,
-                    CONNECTION_TIMEOUT);
-            HttpConnectionParams.setSoTimeout(httpRequestParams,
-                    CONNECTION_TIMEOUT);
-            return httpRequestParams;
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            super.onPostExecute(result);
-            progressDialog.dismiss();
-            userCallBack.done(null);
-        }
-
+        return null;
     }
 
-    public class fetchUserDataAsyncTask extends AsyncTask<Void, Void, User> {
-        User user;
-        GetUserCallback userCallBack;
+    protected void onPostExecute(JSONObject json) {
 
-        public fetchUserDataAsyncTask(User user, GetUserCallback userCallBack) {
-            this.user = user;
-            this.userCallBack = userCallBack;
+        int success = 0;
+        String message = "";
+
+        if (pDialog != null && pDialog.isShowing()) {
+            pDialog.dismiss();
         }
 
-        @Override
-        protected User doInBackground(Void... params) {
-            ArrayList<NameValuePair> dataToSend = new ArrayList<>();
-            dataToSend.add(new BasicNameValuePair("username", user.username));
-            dataToSend.add(new BasicNameValuePair("password", user.password));
-
-            HttpParams httpRequestParams = new BasicHttpParams();
-            HttpConnectionParams.setConnectionTimeout(httpRequestParams,
-                    CONNECTION_TIMEOUT);
-            HttpConnectionParams.setSoTimeout(httpRequestParams,
-                    CONNECTION_TIMEOUT);
-
-            HttpClient client = new DefaultHttpClient(httpRequestParams);
-            HttpPost post = new HttpPost(SERVER_ADDRESS
-                    + "FetchUserData.php");
-
-            User returnedUser = null;
+        if (json != null) {
+            Toast.makeText(this.context, json.toString(),
+                    Toast.LENGTH_LONG).show();
 
             try {
-                post.setEntity(new UrlEncodedFormEntity(dataToSend));
-                HttpResponse httpResponse = client.execute(post);
-
-                HttpEntity entity = httpResponse.getEntity();
-                String result = EntityUtils.toString(entity);
-                JSONObject jObject = new JSONObject(result);
-
-                if (jObject.length() != 0){
-                    Log.v("happened", "2");
-                    String name = jObject.getString("name");
-                    int age = jObject.getInt("age");
-
-                    returnedUser = new User(name, age, user.username,
-                            user.password);
-                }
-
-            } catch (Exception e) {
+                success = json.getInt(TAG_SUCCESS);
+                message = json.getString(TAG_MESSAGE);
+            } catch (JSONException e) {
                 e.printStackTrace();
             }
-
-            return returnedUser;
         }
 
-        @Override
-        protected void onPostExecute(User returnedUser) {
-            super.onPostExecute(returnedUser);
-            progressDialog.dismiss();
-            userCallBack.done(returnedUser);
+        if (success == 1) {
+            Log.d("Success!", message);
+        }else{
+            Log.d("Failure", message);
         }
     }
+
+}
+
+
+class GETRequest extends AsyncTask<String, String, JSONObject> {
+    Context context;
+    JSONParser jsonParser = new JSONParser();
+
+    private ProgressDialog pDialog;
+
+    private static final String LOGIN_URL = "localhost:8000/login.php";
+
+    private static final String TAG_SUCCESS = "success";
+    private static final String TAG_MESSAGE = "message";
+
+
+    public GETRequest(Context context) {
+
+
+    }
+
+    @Override
+    protected void onPreExecute() {
+        pDialog = new ProgressDialog(this.context);
+        pDialog.setMessage("Attempting login...");
+        pDialog.setIndeterminate(false);
+        pDialog.setCancelable(true);
+        pDialog.show();
+    }
+
+    @Override
+    protected JSONObject doInBackground(String... args) {
+
+        try {
+
+            HashMap<String, String> params = new HashMap<>();
+            params.put("email", args[0]);
+            params.put("password", args[1]);
+
+            Log.d("request", "starting");
+
+            JSONObject json = jsonParser.makeHttpRequest(
+                    LOGIN_URL, "GET", params);
+
+            if (json != null) {
+                Log.d("JSON result", json.toString());
+
+                return json;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    protected void onPostExecute(JSONObject json) {
+
+        int success = 0;
+        String message = "";
+
+        if (pDialog != null && pDialog.isShowing()) {
+            pDialog.dismiss();
+        }
+
+        if (json != null) {
+            Toast.makeText(this.context, json.toString(),
+                    Toast.LENGTH_LONG).show();
+
+            try {
+                success = json.getInt(TAG_SUCCESS);
+                message = json.getString(TAG_MESSAGE);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if (success == 1) {
+            Log.d("Success!", message);
+        }else{
+            Log.d("Failure", message);
+        }
+    }
+
 }
 
