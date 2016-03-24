@@ -11,6 +11,7 @@ import android.widget.Toast;
 import android.content.Intent;
 import android.view.View;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -21,11 +22,13 @@ class POSTRequest extends AsyncTask<String, String, JSONObject> {
     private Context context;
 
     private ProgressDialog pDialog;
-
-    private static final String LOGIN_URL = "http://10.68.248.51:8000/register.php";
+                                            //"http://10.68.248.51:8000/register.php"
+    private static final String LOGIN_URL = "http://192.168.0.104:8000/register.php";
 
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_MESSAGE = "message";
+    private static final String TAG_EMAIL = "email";
+    private static final String TAG_PASSWORD = "password";
 
    /* public POSTRequest(Context context)
     {
@@ -53,7 +56,6 @@ class POSTRequest extends AsyncTask<String, String, JSONObject> {
             params.put("password", args[1]);
 
             Log.d("request", "starting");
-
             JSONObject json = jsonParser.makeHttpRequest(
                     LOGIN_URL, "POST", params);
 
@@ -86,8 +88,11 @@ class POSTRequest extends AsyncTask<String, String, JSONObject> {
             try {
                 success = json.getInt(TAG_SUCCESS);
                 message = json.getString(TAG_MESSAGE);
+                String lel = "hihi"; ///////
+                Log.d("lel",lel);   ///////
             } catch (JSONException e) {
                 e.printStackTrace();
+
             }
         }
 
@@ -102,26 +107,28 @@ class POSTRequest extends AsyncTask<String, String, JSONObject> {
 
 
 class GETRequest extends AsyncTask<String, String, JSONObject> {
-    Context context;
+    Context context = LoginActivity.getTheContext();
+    Userlocaldata userData;
+    private boolean loggedin; ///////////////////////////////
     JSONParser jsonParser = new JSONParser();
 
     private ProgressDialog pDialog;
 
-    private static final String LOGIN_URL = "localhost:8000/login.php";
+    private static final String LOGIN_URL = "http://192.168.0.104:8000/login.php";
 
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_MESSAGE = "message";
 
-    /*
-    @Override
+
+   /* @Override
     protected void onPreExecute() {
-        pDialog = new ProgressDialog(this.context);
+        pDialog = new ProgressDialog(context.getApplicationContext());
         pDialog.setMessage("Attempting login...");
         pDialog.setIndeterminate(false);
         pDialog.setCancelable(true);
         pDialog.show();
     }
-    */
+*/
     @Override
     protected JSONObject doInBackground(String... args) {
 
@@ -132,15 +139,18 @@ class GETRequest extends AsyncTask<String, String, JSONObject> {
             params.put("password", args[1]);
 
             Log.d("request", "starting");
-
+                                                                        //////probleem kan niet van string naar jsonobject
             JSONObject json = jsonParser.makeHttpRequest(
                     LOGIN_URL, "GET", params);
+            String lel = "hihi"; ///////
+            Log.d("lel",lel);   ///////
+           // if (json != null) {
 
-            if (json != null) {
                 Log.d("JSON result", json.toString());
 
+
                 return json;
-            }
+          //  }
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -159,7 +169,7 @@ class GETRequest extends AsyncTask<String, String, JSONObject> {
         }
 
         if (json != null) {
-            Toast.makeText(this.context, json.toString(),
+            Toast.makeText(context.getApplicationContext(), json.toString(),
                     Toast.LENGTH_LONG).show();
 
             try {
@@ -172,6 +182,7 @@ class GETRequest extends AsyncTask<String, String, JSONObject> {
 
         if (success == 1) {
             Log.d("Success!", message);
+            userData.setLoggedin(loggedin);//////////////////////
         }else{
             Log.d("Failure", message);
         }

@@ -35,22 +35,25 @@ public class Userlocaldata {
 
     }
 
-    public void setLoggedin(boolean loggedIn) {
+    public void setLoggedin(boolean loggedin) {
         SharedPreferences.Editor editor = userData.edit();
-        editor.putBoolean("loggedIn",loggedIn);
+        editor.putBoolean("loggedin",loggedin);
         editor.commit();
 
     }
 
-    public User getLoggedin() {
-        if (userData.getBoolean("loggedIn", false) == false) {
-            return null;
+    public boolean getLoggedin() {
+        if (userData.getBoolean("loggedin", false)) {
+            return false;
         }
-        String email = userData.getString("email", "");
+
+        else {
+            return true;
+        }
+        /*String email = userData.getString("email", "");
         String password = userData.getString("password", "");
 
-        User user = new User( email, password);
-        return user;
+        User user = new User( email, password); */
     }
 
     public void clearUserData() {

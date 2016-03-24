@@ -21,7 +21,7 @@ public class LoginActivity extends AppCompatActivity {
     Button bLogin;
     EditText etEmail,etPassword;
     TextView toRegister;
-
+    public  static Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,26 +32,27 @@ public class LoginActivity extends AppCompatActivity {
         etEmail=(EditText)findViewById(R.id.editText);
         etPassword=(EditText)findViewById(R.id.editText2);
         toRegister=(TextView) findViewById(R.id.toRegister);
-
-        userData = new Userlocaldata(this);
-
+        userData = new Userlocaldata(this); ///////////////////////////////////////////////////
         bLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(etEmail.getText().toString().equals("a") && etPassword.getText().toString().equals("a")) {
-                    String mail  = etEmail.getText().toString();
-                    String password  = etPassword.getText().toString();
-                    User loggonUser = new User(mail,password);
+                //if(etEmail.getText().toString().equals("a") && etPassword.getText().toString().equals("a")) {
+
+                    String email = etEmail.getText().toString();
+                    String password = etPassword.getText().toString();
+                    User loggonUser = new User(email, password);
                     userData.storeUserData(loggonUser);
-                    userData.setLoggedin(true);
-                    Toast.makeText(getApplicationContext(), "Redirecting...", Toast.LENGTH_SHORT).show();
+                    new GETRequest().execute(loggonUser.getEmail(), loggonUser.getPassword());
+                if(userData.getLoggedin()) {
+                   // Toast.makeText(getApplicationContext(), "Redirecting...", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent("com.example.kim.episeries.MainActivity");
                     startActivity(intent);
                 }
-                else{
-                    Toast.makeText(getApplicationContext(), "Wrong Credentials",Toast.LENGTH_SHORT).show();
+                //}
+                //else{
+                  //  Toast.makeText(getApplicationContext(), "Wrong Credentials",Toast.LENGTH_SHORT).show();
 
-                }
+                //}
             }
         });
         toRegister.setOnClickListener(new View.OnClickListener() {
@@ -61,6 +62,11 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    public static Context getTheContext() {
+
+        return context;
     }
 
     @Override
@@ -93,7 +99,7 @@ public class LoginActivity extends AppCompatActivity {
         etPassword.setText(user.getPassword());
     }
 
-    @Override
+   /* @Override
     protected void onStart() {
         super.onStart();
         if( authenticate()== true) {
@@ -109,7 +115,7 @@ public class LoginActivity extends AppCompatActivity {
         }
         return true;
     }
-
+    */
 }
 
 
