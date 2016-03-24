@@ -18,28 +18,30 @@ import java.util.HashMap;
 
 class POSTRequest extends AsyncTask<String, String, JSONObject> {
     JSONParser jsonParser = new JSONParser();
-    Context context;
+    private Context context;
 
     private ProgressDialog pDialog;
 
-    private static final String LOGIN_URL = "localhost:8000/register.php";
+    private static final String LOGIN_URL = "http://10.68.248.51:8000/register.php";
 
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_MESSAGE = "message";
 
-
-    public POSTRequest(Context context) {
-
-
+   /* public POSTRequest(Context context)
+    {
+        this.context = context;
     }
+
+
     @Override
     protected void onPreExecute() {
-        pDialog = new ProgressDialog(this.context);
+        pDialog = new ProgressDialog(context);
         pDialog.setMessage("Attempting login...");
         pDialog.setIndeterminate(false);
         pDialog.setCancelable(true);
         pDialog.show();
     }
+    */
 
     @Override
     protected JSONObject doInBackground(String... args) {
@@ -110,12 +112,7 @@ class GETRequest extends AsyncTask<String, String, JSONObject> {
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_MESSAGE = "message";
 
-
-    public GETRequest(Context context) {
-
-
-    }
-
+    /*
     @Override
     protected void onPreExecute() {
         pDialog = new ProgressDialog(this.context);
@@ -124,7 +121,7 @@ class GETRequest extends AsyncTask<String, String, JSONObject> {
         pDialog.setCancelable(true);
         pDialog.show();
     }
-
+    */
     @Override
     protected JSONObject doInBackground(String... args) {
 
