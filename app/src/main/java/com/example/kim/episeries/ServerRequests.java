@@ -22,7 +22,7 @@ class POSTRequest extends AsyncTask<String, String, JSONObject> {
 
     private ProgressDialog pDialog;
 
-    private static final String LOGIN_URL = "http://10.68.248.51:8000/register.php";
+    private static final String LOGIN_URL = "http://10.68.245.21:8000/register.php";
 
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_MESSAGE = "message";
@@ -107,7 +107,7 @@ class GETRequest extends AsyncTask<String, String, JSONObject> {
 
     private ProgressDialog pDialog;
 
-    private static final String LOGIN_URL = "localhost:8000/login.php";
+    private static final String LOGIN_URL = "http://10.68.245.21:8000/login.php";
 
     private static final String TAG_SUCCESS = "success";
     private static final String TAG_MESSAGE = "message";
