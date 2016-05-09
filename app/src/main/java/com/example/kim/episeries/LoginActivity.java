@@ -42,7 +42,6 @@ public class LoginActivity extends AppCompatActivity {
                     String password = etPassword.getText().toString();
                     User loggonUser = new User(email, password);
                     userData.storeUserData(loggonUser);
-                    new GETRequest().execute(loggonUser.getEmail(), loggonUser.getPassword());
                 if(userData.getLoggedin()) {
                    // Toast.makeText(getApplicationContext(), "Redirecting...", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent("com.example.kim.episeries.MainActivity");
