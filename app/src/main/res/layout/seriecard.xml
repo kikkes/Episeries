@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/card_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/txtSerieName"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:background="#1624a3"
+            android:text="Serie"
+            android:gravity="center_vertical"
+            android:textColor="@android:color/white"
+            android:textSize="14dp"/>
+
+        <TextView
+            android:id="@+id/txtSeason"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Season"
+            android:gravity="center_vertical"
+            android:layout_centerHorizontal="true"
+            android:layout_alignBaseline="@+id/txtSerieName"
+            android:layout_marginTop="10dp"
+            android:textColor="@android:color/white"
+            android:layout_marginLeft="5dp"
+            android:textSize="14dp"/>
+
+        <TextView
+            android:id="@+id/txtEpisode"
+            android:text="Episode"
+            android:gravity="center_vertical"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="5dp"
+            android:layout_alignParentRight="true"
+            android:textColor="@android:color/white"
+            android:layout_alignBaseline="@+id/txtSerieName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14dp"/>
+
+        <TextView
+            android:id="@+id/txtEpiName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Episode Name"
+            android:gravity="center_vertical"
+            android:textSize="10dp"
+            android:layout_below="@id/txtSeason"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="5dp"/>
+
+        />
+
+        <TextView
+            android:id="@+id/txtReleaseDate"
+            android:text="Release Date"
+            android:gravity="center_vertical"
+            android:textSize="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="5dp"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/txtSerieName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>
+

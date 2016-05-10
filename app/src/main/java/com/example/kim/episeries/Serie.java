@@ -5,6 +5,8 @@ package com.example.kim.episeries;
  */
 public class Serie {
 
+
+    int episode_id;
     String serieName ;
     String epiName ;
     String episode ;
@@ -12,12 +14,21 @@ public class Serie {
     String season;
     boolean isSeen ;
 
-    public Serie(String serieName, String epiName, String episode, String releaseDate, String season) {
+    public Serie(int episode_id, String serieName, String epiName, String episode, String releaseDate, String season) {
+        this.episode_id = episode_id;
         this.serieName = serieName;
         this.epiName = epiName;
         this.episode = episode;
         this.releaseDate = releaseDate;
         this.season = season;
+    }
+
+    public int getEpisode_id() {
+        return episode_id;
+    }
+
+    public void setEpisode_id(int episode_id) {
+        this.episode_id = episode_id;
     }
 
     public String getSerieName() {

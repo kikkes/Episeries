@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent("com.example.kim.episeries.LoginActivity");
+                        Intent intent = new Intent("com.example.kim.episeries.SeriesListActivity");
                         startActivity(intent);
                     }
                 }

@@ -35,8 +35,6 @@ public class RegisterActivity extends AppCompatActivity {
                 String password  = etPassword.getText().toString();
                 User newUser = new User(mail,password);
 
-                new POSTRequest().execute(newUser.getEmail(), newUser.getPassword());
-
                 Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                 startActivity(intent);
 

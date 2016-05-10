@@ -12,5 +12,6 @@
     <string name="pref_title_sms_delete">titlesmsdel</string>
     <string name="pref_sms_storage_title">smsstortitle</string>
     <string name="pref_title_mms_delete">titlemmsdel</string>
+    <string name="title_activity_series_list">SeriesListActivity</string>
 
 </resources>
