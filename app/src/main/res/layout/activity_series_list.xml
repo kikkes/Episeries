@@ -23,6 +23,6 @@
 
     <include layout="@layout/content_series_list" />
 
-    
+
 
 </android.support.design.widget.CoordinatorLayout>
