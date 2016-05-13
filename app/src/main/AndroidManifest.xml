@@ -64,6 +64,13 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity android:name=".SerieActivity">
+            <intent-filter>
+                <action android:name="com.example.kim.episeries.SerieActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

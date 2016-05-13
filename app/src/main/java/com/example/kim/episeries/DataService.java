@@ -18,8 +18,6 @@ import retrofit.http.Query;
 interface DataService {
     @GET("serieData.php")
     Call<List<Serie>> seriesList(@Query("serieName") String serieName);
-    //void seriesList(@Query("serieName") String serieName, Callback<List<Serie>> cb);
-
 
     public static final Retrofit retrofit = new Retrofit.Builder()
             .baseUrl("http://10.68.250.107:8000/")
@@ -29,9 +27,18 @@ interface DataService {
 
 interface SerieService {
     @GET("serieNames.php")
-    Call<List<Serie>> seriesList();
-    //void seriesList(@Query("serieName") String serieName, Callback<List<Serie>> cb);
+    Call<List<String>> seriesList();
 
+    public static final Retrofit retrofit = new Retrofit.Builder()
+            .baseUrl("http://10.68.250.107:8000/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build();
+}
+
+interface LoginService {
+    @GET("login.php")
+    Call<String> getUserData(@Query("email") String email,
+                                 @Query("password") String password);
 
     public static final Retrofit retrofit = new Retrofit.Builder()
             .baseUrl("http://10.68.250.107:8000/")
