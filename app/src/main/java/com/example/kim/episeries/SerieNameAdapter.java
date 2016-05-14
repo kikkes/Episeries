@@ -69,7 +69,7 @@ public class SerieNameAdapter extends RecyclerView.Adapter<SerieNameAdapter.Seri
                     String str = vSerieName.getText().toString();
                     Intent intent = new Intent(context, SerieActivity.class);
                     intent.putExtra("serieName",str);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(intent);
                     break;
 

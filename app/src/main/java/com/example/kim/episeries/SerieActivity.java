@@ -46,7 +46,7 @@ public class SerieActivity extends AppCompatActivity {
     }
 
     public void updateView(List<Serie> list) {
-        RecyclerView recList = (RecyclerView) findViewById(R.id.series_list);
+        RecyclerView recList = (RecyclerView) findViewById(R.id.episodes_list);
         recList.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
