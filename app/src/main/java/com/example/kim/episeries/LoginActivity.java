@@ -53,16 +53,17 @@ public class LoginActivity extends AppCompatActivity {
                 String password = etPassword.getText().toString();
                 final LoginService loginService = LoginService.retrofit.create(LoginService.class);
                 final Call<String> call = loginService.getUserData(email, password);
-                Intent intent = new Intent("com.example.kim.episeries.MainActivity");
-                startActivity(intent);
-                /*call.enqueue(new Callback<String>() {
+                //Intent intent = new Intent("com.example.kim.episeries.MainActivity");
+                //startActivity(intent);
+                call.enqueue(new Callback<String>() {
                     @Override
                     public void onResponse(Response<String> response, Retrofit retrofit) {
-                        if(response.body() == "true"){
+                        if(response.body().toString().equalsIgnoreCase("true")){
+                            Toast.makeText(getApplicationContext(), "Succesful logon!", Toast.LENGTH_LONG).show();
                             Intent intent = new Intent("com.example.kim.episeries.MainActivity");
                             startActivity(intent);
                         }else{
-                            Toast.makeText(getApplicationContext(), "Email or password was not correct!", Toast.LENGTH_LONG);
+                            Toast.makeText(getApplicationContext(), "Email or password was not correct!", Toast.LENGTH_LONG).show();
                         }
                     }
 
@@ -70,7 +71,7 @@ public class LoginActivity extends AppCompatActivity {
                     public void onFailure(Throwable t) {
                         Log.w("FAILURE: ", t.toString());
                     }
-                });*/
+                });
 
 
                    /* User loggonUser = new User(email, password);

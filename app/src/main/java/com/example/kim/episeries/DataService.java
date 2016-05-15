@@ -12,15 +12,13 @@ import retrofit.Retrofit;
 import retrofit.http.GET;
 import retrofit.http.Query;
 
-/**
- * Created by shelajev on 16/12/15.
- */
+
 interface DataService {
     @GET("serieData.php")
     Call<List<Serie>> seriesList(@Query("serieName") String serieName);
 
     public static final Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("http://192.168.1.112:8000/")
+            .baseUrl("http://192.168.0.104:8000/")
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 }
@@ -30,7 +28,7 @@ interface SerieService {
     Call<List<String>> seriesList();
 
     public static final Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("http://192.168.1.112:8000/")
+            .baseUrl("http://192.168.0.104:8000/")
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 }
@@ -41,7 +39,18 @@ interface LoginService {
                                  @Query("password") String password);
 
     public static final Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("http://192.168.1.112:8000/")
+            .baseUrl("http://192.168.0.104:8000/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build();
+}
+
+interface RegisterService {
+    @GET("register.php")
+    Call<String> sendUserData(@Query("email") String email,
+                             @Query("password") String password);
+
+    public static final Retrofit retrofit = new Retrofit.Builder()
+            .baseUrl("http://192.168.0.104:8000/")
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 }

@@ -15,11 +15,12 @@
             android:id="@+id/txtSerieName"
             android:layout_width="match_parent"
             android:layout_height="20dp"
-            android:background="#1624a3"
+            android:textStyle="bold"
+
             android:text="Serie"
             android:gravity="center_vertical"
-            android:textColor="@android:color/white"
-            android:textSize="14dp"/>
+            android:textColor="#3C3C3C"
+            android:textSize="16dp"/>
 
         <TextView
             android:id="@+id/txtSeason"
@@ -30,9 +31,9 @@
             android:layout_centerHorizontal="true"
             android:layout_alignBaseline="@+id/txtSerieName"
             android:layout_marginTop="10dp"
-            android:textColor="@android:color/white"
+            android:textColor="#3C3C3C"
             android:layout_marginLeft="5dp"
-            android:textSize="14dp"/>
+            android:textSize="16dp"/>
 
         <TextView
             android:id="@+id/txtEpisode"
@@ -41,11 +42,11 @@
             android:layout_marginTop="10dp"
             android:layout_marginRight="5dp"
             android:layout_alignParentRight="true"
-            android:textColor="@android:color/white"
+            android:textColor="#3C3C3C"
             android:layout_alignBaseline="@+id/txtSerieName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14dp"/>
+            android:textSize="16dp"/>
 
         <TextView
             android:id="@+id/txtEpiName"
@@ -53,9 +54,10 @@
             android:layout_height="wrap_content"
             android:text="Episode Name"
             android:gravity="center_vertical"
-            android:textSize="10dp"
+            android:textSize="14dp"
             android:layout_below="@id/txtSeason"
-            android:layout_marginTop="10dp"
+            android:textColor="#3C3C3C"
+            android:layout_marginTop="5dp"
             android:layout_marginLeft="5dp"/>
 
         />
@@ -64,13 +66,21 @@
             android:id="@+id/txtReleaseDate"
             android:text="Release Date"
             android:gravity="center_vertical"
-            android:textSize="10dp"
-            android:layout_marginTop="10dp"
+            android:textSize="14dp"
+            android:paddingBottom="15dp"
+            android:layout_marginTop="5dp"
             android:layout_marginRight="5dp"
+            android:textColor="#3C3C3C"
             android:layout_alignParentRight="true"
             android:layout_below="@+id/txtSerieName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
+        <View
+            android:layout_width="fill_parent"
+            android:layout_marginBottom="15dp"
+            android:layout_below="@+id/txtReleaseDate"
+            android:layout_height="1dp"
+            android:background="#CECECE" />
 
 
 

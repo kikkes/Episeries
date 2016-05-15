@@ -33,24 +33,6 @@ public class AddSerieActivity extends AppCompatActivity {
         final Call<List<String>> call =
                 serieService.seriesList();
 
-                                //new NetworkCall().execute(call);
-        /*call.enqueue(new Callback<List<String>>() {
-            @Override
-            public void onResponse(Response<List<String>> response, Retrofit retrofit) {
-                for(final String tempserie : response.body()){
-                    Log.w("SUCCES", tempserie.toString());
-                }
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-                Log.w("ERROR: ", t.toString());
-                Log.w("ERROR: ", t.getMessage());
-                Log.w("ERROR: ", t.getLocalizedMessage());
-                Log.w("ERROR: ", t.getCause().toString());
-            }
-        });*/
-
 
         call.enqueue(new Callback<List<String>>() {
             @Override

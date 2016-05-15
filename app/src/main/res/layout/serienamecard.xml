@@ -11,16 +11,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
-            android:layout_marginBottom="2dp"
+            android:layout_marginBottom="5dp"
             android:id="@+id/txtSerieName"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:background="#1624a3"
+            android:textStyle="bold"
             android:text="Serie"
             android:gravity="center_vertical"
-            android:textColor="@android:color/white"
+            android:textColor="#3C3C3C"
             android:textSize="14dp"
             />
+        <View
+            android:layout_width="fill_parent"
+            android:layout_marginBottom="10dp"
+            android:layout_below="@+id/txtSerieName"
+            android:layout_height="1dp"
+            android:background="#CECECE" />
 
     </RelativeLayout>
 
